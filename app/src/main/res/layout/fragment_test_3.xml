@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ktds.cocomo.mydrawablelayout.GalleryFragment">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <Button
+            android:id="@+id/btnFirst3"
+            android:text="Url / Memo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/main"
+            android:textColor="@color/white"
+            android:layout_marginRight="1dp"
+            />
+
+        <Button
+            android:id="@+id/btnSecond3"
+            android:text="Review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/main"
+            android:textColor="@color/white"/>
+
+
+    </LinearLayout>
+
+    <!--
+    View Pager에 Fragment를 Source Code로 등록한다.
+    -->
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:requiresFadingEdge="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>

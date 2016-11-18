@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:com.example.danbilaq.project_yeobo.CustomTextView="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    tools:context="com.poster.danbilap.project_yeobo.MainActivity">
+
+    <com.poster.danbilap.project_yeobo.SquareImageView
+        android:id="@+id/picture"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+    <com.poster.danbilap.project_yeobo.CustomTextView
+        android:id="@+id/title_travel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:text="여행이름"
+        android:layout_gravity="center"
+        />
+
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <com.poster.danbilap.project_yeobo.CustomTextView
+            android:id="@+id/start_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:textColor="@color/white"
+            android:text="시작"/>
+
+        <com.poster.danbilap.project_yeobo.CustomTextView
+            android:layout_marginTop="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:textColor="@color/white"
+            android:text=" ~ "/>
+
+        <com.poster.danbilap.project_yeobo.CustomTextView
+            android:id="@+id/end_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:textColor="@color/white"
+            android:text="끝"/>
+
+    </LinearLayout>
+    <com.poster.danbilap.project_yeobo.CustomTextView
+        android:id="@+id/travel_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:text="여행도시"
+        android:textAlignment="center"/>
+    </LinearLayout>
+
+
+
+</FrameLayout>
