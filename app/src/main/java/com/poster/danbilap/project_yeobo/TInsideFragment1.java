@@ -18,10 +18,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ActionMenuView;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,9 +41,9 @@ import retrofit.client.Response;
 /**
  * Created by daeun on 2016-11-16.
  */
-public class TInsideFragment1 extends Fragment  {
+public class TInsideFragment1 extends Fragment {
 
-    ImageButton ib ;
+    ImageButton ib;
     ViewGroup rootView;
     ArrayList<Memo> m_arr;
     MemoAdapter memoAdapter;
@@ -57,28 +57,20 @@ public class TInsideFragment1 extends Fragment  {
     int check_num = 1; //메모
 
 
-
     myFragListener ac;
 
-    public interface myFragListener{
+    public interface myFragListener {
         public int get1();
+
         public int get2();
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if(activity instanceof myFragListener){
-            ac =(myFragListener)activity;
+        if (activity instanceof myFragListener) {
+            ac = (myFragListener) activity;
         }
-    }
-
-    @Override
-    public void onResume() {
-        memoAdapter = new MemoAdapter(getContext(), R.layout.memo, m_arr);
-        lv.setAdapter(memoAdapter);
-
-        super.onResume();
     }
 
     @Override
@@ -87,8 +79,8 @@ public class TInsideFragment1 extends Fragment  {
         rootView = (ViewGroup) inflater.inflate(R.layout.fragment_child1, container, false);
 
 
-        t_number=ac.get1();
-        c_num=ac.get2();
+        t_number = ac.get1();
+        c_num = ac.get2();
 
         init();
 
@@ -105,45 +97,6 @@ public class TInsideFragment1 extends Fragment  {
         show_memo(t_number);
         memoAdapter.notifyDataSetChanged();
 
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String value = (String)parent.getItemAtPosition(position);
-                Toast.makeText(getContext(), value, Toast.LENGTH_LONG).show();
-            }
-        });
-
-        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                mm_share = m_arr.get(position).getS_num();
-                //길게 누르면 삭제 버튼 생성
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());// 여기서 this는 Activity의 this
-
-                // 여기서 부터는 알림창의 속성 설정
-                builder.setTitle("메모 삭제")        // 제목 설정
-                        .setMessage("선택한 메모를 삭제 하시겠습니까?")        // 메세지 설정
-                        .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능 설정
-                        .setPositiveButton("예", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                delete_memo(mm_share);
-                                m_arr.remove(position);
-                                memoAdapter.notifyDataSetChanged();
-                            }
-                        })
-
-                        .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                dialog.cancel();
-                            }
-                        });
-
-                AlertDialog dialog = builder.create();    // 알림창 객체 생성
-                dialog.show();    // 알림창 띄우기
-                return false;
-            }
-        });
-
         ib = (ImageButton) rootView.findViewById(R.id.imageButton);
         ib.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,8 +104,8 @@ public class TInsideFragment1 extends Fragment  {
                 //메모 화면뜨게 한다.
                 Intent intent = new Intent(getActivity().getApplication(), MemoActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("travel_number",""+t_number);
-                bundle.putString("c_num",""+c_num);
+                bundle.putString("travel_number", "" + t_number);
+                bundle.putString("c_num", "" + c_num);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -184,12 +137,13 @@ public class TInsideFragment1 extends Fragment  {
                             String m_title = obj.get("memo_title").getAsString();
                             String m_content = obj.get("memo_content").getAsString();
                             int check_num = obj.get("check_num").getAsInt();
-                            Memo m = new Memo(s_num, t_num, share_url, share_img, share_description, share_title, m_title, m_content,check_num);
+                            Memo m = new Memo(s_num, t_num, share_url, share_img, share_description, share_title, m_title, m_content, check_num);
 
-                            m_arr.add(i,m);
+                            m_arr.add(i, m);
                             memoAdapter.notifyDataSetChanged();
                         }
                     }
+
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d("test", error.toString());
@@ -215,6 +169,7 @@ public class TInsideFragment1 extends Fragment  {
                             Toast.makeText(getActivity(), "메모를 삭제하였습니다!", Toast.LENGTH_SHORT).show();
                         }
                     }
+
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d("test", error.toString());
@@ -224,7 +179,6 @@ public class TInsideFragment1 extends Fragment  {
         }).start();
 
     }
-
 
 
     /**
@@ -251,7 +205,7 @@ public class TInsideFragment1 extends Fragment  {
 
         @TargetApi(Build.VERSION_CODES.LOLLIPOP)
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             View v = convertView;
             if (v == null) {//뷰가 없을 시 row 레이아웃 만들어준다.
                 LayoutInflater vi =
@@ -269,9 +223,46 @@ public class TInsideFragment1 extends Fragment  {
                 final TextView subtitleView = (TextView) v.findViewById(R.id.subTitleView);
                 final TextView urlView = (TextView) v.findViewById(R.id.urlView);
                 final ImageView urlimage = (ImageView) v.findViewById(R.id.url_image);
-
+                final ImageButton cancel_btn = (ImageButton) v.findViewById(R.id.cancel_btn);
                 final String iurl = mi.getI_url();
                 final String url = mi.getS_url();
+
+                final String text = String.valueOf(m_items.get(position));
+                final ImageButton button = (ImageButton)v.findViewById(R.id.cancel_btn);
+
+                LinearLayout layout  = (LinearLayout)v.findViewById(R.id.iblayout);
+                LinearLayout.LayoutParams layparam = (LinearLayout.LayoutParams) layout.getLayoutParams();
+                if(url.equals("")) {
+                    layparam.leftMargin = 420;
+                    layout.setLayoutParams(layparam);
+                }
+
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mm_share = m_arr.get(position).getS_num();
+                        //길게 누르면 삭제 버튼 생성
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());// 여기서 this는 Activity의 this
+                        // 여기서 부터는 알림창의 속성 설정
+                        builder.setTitle("메모 삭제")        // 제목 설정
+                                .setMessage("선택한 메모를 삭제 하시겠습니까?")        // 메세지 설정
+                                .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능 설정
+                                .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        delete_memo(mm_share);
+                                        m_arr.remove(position);
+                                        memoAdapter.notifyDataSetChanged();
+                                    }
+                                })
+                                .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        dialog.cancel();
+                                    }
+                                });
+                        AlertDialog dialog = builder.create();    // 알림창 객체 생성
+                        dialog.show();    // 알림창 띄우기
+                    }
+                });
 
 
                 if (!mi.getM_title().equals("")) {

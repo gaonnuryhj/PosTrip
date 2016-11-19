@@ -5,8 +5,9 @@
     android:paddingRight="20dp"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:background="#FAFFBC"
+    android:background="@color/white"
     android:orientation="vertical" tools:context="com.poster.danbilap.project_yeobo.MainActivity">
+    <!--android:background="#FAFFBC"-->
 
 
 
@@ -25,30 +26,26 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="1">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="40dp"
-                    android:text="M"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="30dp"
-                    android:text="emo"/>
+                <ImageView
+                    android:layout_marginBottom="15dp"
+                    android:src="@drawable/pad"
+                    android:layout_width="300dp"
+                    android:layout_height="200dp"
+                    android:layout_weight="0.28"
+                    android:layout_marginTop="30dp"/>
             </LinearLayout>
 
             <TextView
-                android:paddingTop="100dp"
+                android:paddingTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="30dp"
                 android:text="Title "
                 android:layout_marginLeft="10dp"/>
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLength="15"
                 android:id="@+id/title"
 
                 />
@@ -60,17 +57,19 @@
                 android:layout_gravity="center_vertical"
                 android:hint="Enter your note(within 100 characters)"
                 android:id="@+id/content"
-                android:paddingTop="50dp"
+                android:paddingTop="30dp"
                 />
 
             <Button
-                android:layout_marginTop="150dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|bottom"
-                android:text=">> save"
+                android:text="save"
                 android:id="@+id/saveButton"
-                android:background="@drawable/xml_border_gray"
+                android:background="@color/white"
+                android:textColor="@color/gray"
+                android:textSize="17dp"
+                style="?android:attr/borderlessButtonStyle"
                 />
 
         </LinearLayout>

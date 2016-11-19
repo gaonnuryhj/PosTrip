@@ -18,8 +18,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ActionMenuView;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -46,11 +46,8 @@ public class TInsideFragment3 extends Fragment {
     ListView lv2;
     Memo m1;
     int mm_share;
-
-    /////////////////////////////
     int t_number;
     int c_num;
-
     int travel_num = 0;
     String share_url=null;
     String share_img=null;
@@ -76,16 +73,13 @@ public class TInsideFragment3 extends Fragment {
         }
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = (ViewGroup) inflater.inflate(R.layout.fragment_child3, container, false);
 
-
         t_number=ac.get5();
         c_num=ac.get6();
-
         init();
 
         return rootView;
@@ -100,50 +94,7 @@ public class TInsideFragment3 extends Fragment {
         lv2.setAdapter(memoAdapter2);
         show_other_memo(c_num);
         memoAdapter2.notifyDataSetChanged();
-
-        lv2.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                travel_num = t_number;
-                share_url = m_arr2.get(position).getS_url();
-                share_img = m_arr2.get(position).getI_url();
-                share_description = m_arr2.get(position).getS_description();
-                share_title = m_arr2.get(position).getS_title();
-                memo_content = m_arr2.get(position).getM_content();
-                memo_title = m_arr2.get(position).getM_title();
-                c_num2 = m_arr2.get(position).getC_num();
-                check_num2 = 3;
-                //길게 누르면 삭제 버튼 생성
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());// 여기서 this는 Activity의 this
-
-                // 여기서 부터는 알림창의 속성 설정
-                builder.setTitle("공 유")        // 제목 설정
-                        .setMessage("공유 하시겠습니까?")        // 메세지 설정
-                        .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능 설정
-                        .setPositiveButton("예", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                share_others(travel_num,share_url,share_img,share_description,share_title,
-                                        memo_content,memo_title,c_num2,check_num2);
-                                //m_arr2.remove(position);
-                                //memoAdapter2.notifyDataSetChanged();
-                            }
-                        })
-
-                        .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                dialog.cancel();
-                            }
-                        });
-
-                AlertDialog dialog = builder.create();    // 알림창 객체 생성
-                dialog.show();    // 알림창 띄우기
-                return false;
-            }
-        });
-
     }
-
-
 
     void show_other_memo(final int c_num) {
         new Thread(new Runnable() {
@@ -155,7 +106,6 @@ public class TInsideFragment3 extends Fragment {
                     @Override
                     public void success(JsonObject jsonObject, Response response) {
                         JsonArray result = jsonObject.getAsJsonArray("result");
-
 
                         for (int i = 0; i < result.size(); i++) {
                             JsonObject obj = (JsonObject) result.get(i);
@@ -175,7 +125,6 @@ public class TInsideFragment3 extends Fragment {
                             memoAdapter2.notifyDataSetChanged();
                         }
                     }
-
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d("test", error.toString());
@@ -201,7 +150,6 @@ public class TInsideFragment3 extends Fragment {
                                 String errcode = ((JsonObject)result.get(0)).get("errorCode").getAsString();
                                 Toast.makeText(getContext(), "공유되었습니다!", Toast.LENGTH_SHORT).show();
                             }
-
                             @Override
                             public void failure(RetrofitError error) {
 
@@ -210,8 +158,6 @@ public class TInsideFragment3 extends Fragment {
             }
         }).start();
     }
-
-
 
     /**
      * Created by daeun on 2016-11-10.
@@ -255,10 +201,48 @@ public class TInsideFragment3 extends Fragment {
                 final TextView subtitleView = (TextView) v.findViewById(R.id.subTitleView2);
                 final TextView urlView = (TextView) v.findViewById(R.id.urlView2);
                 final ImageView urlimage = (ImageView) v.findViewById(R.id.url_image2);
-
                 final String iurl = mi.getI_url();
                 final String url = mi.getS_url();
+                final ImageButton share_btn = (ImageButton)v.findViewById(R.id.share_btn);
 
+                share_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        travel_num = t_number;
+                        share_url = mi.getS_url();
+                        share_img =mi.getI_url();
+                        share_description = mi.getS_description();
+                        share_title = mi.getS_title();
+                        memo_content = mi.getM_content();
+                        memo_title = mi.getM_title();
+                        c_num2 = mi.getC_num();
+                        check_num2 = 3;
+                        //길게 누르면 삭제 버튼 생성
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());// 여기서 this는 Activity의 this
+
+                        // 여기서 부터는 알림창의 속성 설정
+                        builder.setTitle("공 유")        // 제목 설정
+                                .setMessage("공유 하시겠습니까?")        // 메세지 설정
+                                .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능 설정
+                                .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        share_others(travel_num,share_url,share_img,share_description,share_title,
+                                                memo_content,memo_title,c_num2,check_num2);
+                                        //m_arr2.remove(position);
+                                        //memoAdapter2.notifyDataSetChanged();
+                                    }
+                                })
+
+                                .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                        AlertDialog dialog = builder.create();    // 알림창 객체 생성
+                        dialog.show();    // 알림창 띄우기
+                    }
+                });
 
                 if (!mi.getM_title().equals("")) {
                     titleView.setText(mi.getM_title());
