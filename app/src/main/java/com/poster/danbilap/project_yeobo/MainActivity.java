@@ -4,6 +4,7 @@ package com.poster.danbilap.project_yeobo;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,14 +15,21 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,6 +82,16 @@ public class MainActivity extends AppCompatActivity
     private BackPressCloseSystem backPressCloseSystem;
     private SwipeRefreshLayout mSwipeRefresh;
 
+    Button close_Btn;
+
+    LinearLayout pop_linear;
+    LinearLayout login_Linear;
+    View pop_View;
+
+    PopupWindow popupWindow;
+    EditText ed;
+    int check;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +105,7 @@ public class MainActivity extends AppCompatActivity
         num=0;
         backPressCloseSystem = new BackPressCloseSystem(this);
 
+        check=0;
 
         init();
 
@@ -162,12 +181,42 @@ public class MainActivity extends AppCompatActivity
                 c_num=t.getC_num();
                 if(url!=null){
 
+                    Resources lang_res = getResources();
+                    DisplayMetrics lang_dm = lang_res.getDisplayMetrics();
+                    int lang_width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 230, lang_dm);
+                    int lang_height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, lang_dm);
+                    login_Linear = (LinearLayout) findViewById(R.id.popup_linear);
+                    pop_View = View.inflate(MainActivity.this, R.layout.popup_layout, null);
+                    if(check==0){
+                    popupWindow = new PopupWindow(pop_View, lang_width, lang_height, true);
+                    ed=(EditText)pop_View.findViewById(R.id.title);
 
-                    ShareTask shareTask = new ShareTask();
-                    shareTask.execute(url);}
-                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
+                    popupWindow.showAtLocation(login_Linear, Gravity.CENTER, 0, 0);}
+
+
+                    // 팝업 닫기 버튼
+                    close_Btn = (Button) pop_View.findViewById(R.id.close_btn);
+
+                    close_Btn.setOnClickListener(new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View v) {
+                            check=1;
+                            sharedTitle=ed.getText().toString();
+                            ShareTask shareTask = new ShareTask();
+                            shareTask.execute(url);
+                            popupWindow.dismiss();
+                          // 팝업 닫기
+                        }
+
+                    });
+                    if(check==1){
+                    Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                    intent.putExtras(bundle);
+                    startActivity(intent);}
+                }
+
+
             }
         });
 
@@ -398,10 +447,6 @@ public class MainActivity extends AppCompatActivity
                 if (property.equals("og:description")) {
                     sharedDescription = elements.get(i).attr("content");
                 }
-                if (property.equals("og:title")) {
-                    sharedTitle = elements.get(i).attr("content");
-
-                }
 
 
 
@@ -429,7 +474,7 @@ public class MainActivity extends AppCompatActivity
                 String b=share_Url;
                 String c=share_ImageUrl;
                 String d="";
-                if(share_description!=null){d=share_description.substring(100);}
+                if(share_description!=null && share_description.length()>100){d=share_description.substring(100);}
 
                 String e=share_title;
                 int f=c_num;

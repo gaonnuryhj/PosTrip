@@ -6,27 +6,40 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@color/white">
 
 
             <TextView
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_x="1dp"
-                android:layout_y="2dp"
-                android:text="나 팝업했던 레이아웃이야~!"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#FFFFFF" />
+                android:text="Title"
+                android:textColor="@color/main"
+                android:textSize="30dp"
+                />
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="please enter the title"
+            android:layout_marginTop="10dp"
+            android:id="@+id/title"
 
+            />
 
         <Button
             android:id="@+id/close_btn"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="닫기" />
+            android:text="Save"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:background="@color/main"
+            android:textColor="#ffffff"/>
 
     </LinearLayout>
 
