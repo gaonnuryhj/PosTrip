@@ -164,7 +164,7 @@ public class TestFragment2 extends Fragment {
 
             CustomAdapter m_adapter = new CustomAdapter(getContext(), R.layout.custom_list, titleList, contentList, nameList);
             list.setAdapter(m_adapter);
-         //   m_adapter.notifyDataSetChanged();
+            m_adapter.notifyDataSetChanged();
 
 
         } catch (JSONException e) {

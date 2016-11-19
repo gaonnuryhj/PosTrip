@@ -116,7 +116,17 @@ public class TInsideFragment2 extends Fragment {
 
         }
 
+        titleList = new ArrayList<String>();
+        contentList = new ArrayList<String>();
+        nameList = new ArrayList<String>();
+
         getData("http://203.252.182.94//load.php");
+        getData("http://203.252.182.94//load2.php");
+
+        CustomAdapter m_adapter = new CustomAdapter(getContext(), R.layout.custom_list, titleList, contentList, nameList);
+        list.setAdapter(m_adapter);
+        m_adapter.notifyDataSetChanged();
+
         return rootView;
     }
 
@@ -127,11 +137,6 @@ public class TInsideFragment2 extends Fragment {
             review = jsonObj.getJSONArray(TAG_RESULTS);
 
 
-            Bitmap bitmap;
-
-            titleList = new ArrayList<String>();
-            contentList = new ArrayList<String>();
-            nameList = new ArrayList<String>();
 
             for (int i = 0; i < review.length(); i++) {
                 JSONObject c = review.getJSONObject(i);
@@ -148,15 +153,9 @@ public class TInsideFragment2 extends Fragment {
                     contentList.add(content);
                     nameList.add(picture_name);
                 }
-                // bitmap = new ImageRoader().getBitmapImg(picture_name);
-                // bitmapList.add(bitmap);
-                // loading(picture_name);
+
             }
 
-//            Toast.makeText(getContext(),"TES3",Toast.LENGTH_SHORT).show();
-            CustomAdapter m_adapter = new CustomAdapter(getContext(), R.layout.custom_list, titleList, contentList, nameList);
-            list.setAdapter(m_adapter);
-            m_adapter.notifyDataSetChanged();
 
         } catch (JSONException e) {
             e.printStackTrace();
