@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity
 
                     Resources lang_res = getResources();
                     DisplayMetrics lang_dm = lang_res.getDisplayMetrics();
-                    int lang_width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 230, lang_dm);
+                    int lang_width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 320, lang_dm);
                     int lang_height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, lang_dm);
                     login_Linear = (LinearLayout) findViewById(R.id.popup_linear);
                     pop_View = View.inflate(MainActivity.this, R.layout.popup_layout, null);
