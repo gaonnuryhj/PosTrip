@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity
     Button close_Btn;
 
     LinearLayout pop_linear;
-    LinearLayout login_Linear;
+    DrawerLayout login_Linear;
     View pop_View;
 
     PopupWindow popupWindow;
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity
                     DisplayMetrics lang_dm = lang_res.getDisplayMetrics();
                     int lang_width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 320, lang_dm);
                     int lang_height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, lang_dm);
-                    login_Linear = (LinearLayout) findViewById(R.id.popup_linear);
+                    login_Linear = (DrawerLayout) findViewById(R.id.drawer_layout);
                     pop_View = View.inflate(MainActivity.this, R.layout.popup_layout, null);
                     if(check==0){
                     popupWindow = new PopupWindow(pop_View, lang_width, lang_height, true);
