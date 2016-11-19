@@ -1,15 +1,19 @@
 package com.poster.danbilap.project_yeobo;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.example.danbilap.project_yeobo.R;
@@ -73,18 +77,44 @@ public class TestFragment1 extends Fragment {
             }
         });
 
-
-
         // View Pager를 선언합니다.
         pager = (ViewPager) view.findViewById(R.id.pager);
         pager.setAdapter(new PagerAdapter(getChildFragmentManager()));
 
         // 처음으로 0번째 Fragment를 보여줍니다.
         pager.setCurrentItem(0);
+        btnSecondGallery.setBackgroundColor(Color.parseColor("#d7d7d7"));
+        btnSecondGallery.setTextColor(Color.parseColor("#ffffff"));
+        btnFirstGallery.setBackgroundColor(Color.parseColor("#ffffff"));
 
         // Title을 설정합니다.
         getActivity().setTitle("Gallery Fragment");
 
+        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position==0){
+                    btnSecondGallery.setBackgroundColor(Color.parseColor("#d7d7d7"));
+                    btnSecondGallery.setTextColor(Color.parseColor("#ffffff"));
+                    btnFirstGallery.setBackgroundColor(Color.parseColor("#ffffff"));
+                    btnFirstGallery.setTextColor(Color.parseColor("#0d95e9"));
+                }
+                else{
+                    btnFirstGallery.setBackgroundColor(Color.parseColor("#d7d7d7"));
+                    btnFirstGallery.setTextColor(Color.parseColor("#ffffff"));
+                    btnSecondGallery.setBackgroundColor(Color.parseColor("#ffffff"));
+                    btnSecondGallery.setTextColor(Color.parseColor("#0d95e9"));
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
         // Inflate the layout for this fragment
         return view;
 

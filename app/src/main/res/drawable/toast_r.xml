@@ -9,9 +9,9 @@
 
     <stroke
 
-        android:width="2dp"
+        android:width="3dp"
 
-        android:color="@color/main"
+        android:color="@color/red"
         />
     <solid android:color="#ffffff" />
 
@@ -26,7 +26,6 @@
         android:right="10dp"
 
         android:top="10dp" />
-
 
 
 

@@ -13,7 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -124,7 +126,16 @@ public class Join extends AppCompatActivity implements LoaderManager.LoaderCallb
                 join(email, password);
                 if (num == 1) {
                     Log.d("test", "test");
-                    Toast.makeText(Join.this, "중복 email이 존재합니다", Toast.LENGTH_SHORT).show();
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.custom_toast_r,
+                            (ViewGroup) findViewById(R.id.toast_layout));
+
+                    TextView text = (TextView) layout.findViewById(R.id.text);
+                    text.setText("Duplicate email exists");
+                    Toast toast = new Toast(getApplicationContext());
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(layout);
+                    toast.show();
                 }
             }
         }

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -189,7 +190,16 @@ public class AddActivity extends Activity {
                 // t_nation, n_id은 onPostExecute에서
 
                 if (TextUtils.isEmpty(t_title) || TextUtils.isEmpty(t_city) || TextUtils.isEmpty(t_start) || TextUtils.isEmpty(t_finish)) {
-                    Toast.makeText(AddActivity.this, "모두 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.custom_toast_r,
+                            (ViewGroup) findViewById(R.id.toast_layout));
+
+                    TextView text = (TextView) layout.findViewById(R.id.text);
+                    text.setText("Please enter all");
+                    Toast toast = new Toast(getApplicationContext());
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(layout);
+                    toast.show();
                 } else {
 
                     create_travel(id, t_title, t_city, t_start, t_finish, num);
@@ -226,7 +236,16 @@ public class AddActivity extends Activity {
                         String errcode = ((JsonObject) result.get(0)).get("errorCode").getAsString();
 
                         if (errcode.equals("success")) {
-                            Toast.makeText(AddActivity.this, "새로운 여행이 추가되었습니다!", Toast.LENGTH_SHORT).show();
+                            LayoutInflater inflater2 = getLayoutInflater();
+                            View layout2 = inflater2.inflate(R.layout.custom_toast,
+                                    (ViewGroup) findViewById(R.id.toast_layout));
+
+                            TextView text = (TextView) layout2.findViewById(R.id.text);
+                            text.setText("New trip added!");
+                            Toast toast = new Toast(getApplicationContext());
+                            toast.setDuration(Toast.LENGTH_SHORT);
+                            toast.setView(layout2);
+                            toast.show();
                             Intent myIntent = new Intent(AddActivity.this, MainActivity.class);
                             myIntent.putExtra("id", id);
                             startActivity(myIntent);

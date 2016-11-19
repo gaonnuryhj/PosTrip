@@ -27,11 +27,11 @@
                 android:textAlignment="1">
 
                 <ImageView
-                android:layout_marginBottom="15dp"
-                android:src="@drawable/pad"
-                android:layout_width="300dp"
-                android:layout_height="200dp"
-                android:layout_weight="0.28"
+                    android:layout_marginBottom="15dp"
+                    android:src="@drawable/pad"
+                    android:layout_width="300dp"
+                    android:layout_height="200dp"
+                    android:layout_weight="0.28"
                     android:layout_marginTop="30dp"/>
             </LinearLayout>
 
@@ -39,14 +39,13 @@
                 android:paddingTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="30dp"
                 android:text="Title "
                 android:layout_marginLeft="10dp"/>
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLength="15"
                 android:id="@+id/title"
 
                 />

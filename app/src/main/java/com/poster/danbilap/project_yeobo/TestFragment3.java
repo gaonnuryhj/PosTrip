@@ -1,5 +1,6 @@
 package com.poster.danbilap.project_yeobo;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -66,6 +67,35 @@ public class TestFragment3 extends Fragment {
 
         // 처음으로 0번째 Fragment를 보여줍니다.
         pager.setCurrentItem(0);
+        btnForthGallery.setBackgroundColor(Color.parseColor("#d7d7d7"));
+        btnForthGallery.setTextColor(Color.parseColor("#ffffff"));
+        btnThirdGallery.setBackgroundColor(Color.parseColor("#ffffff"));
+
+        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position==0){
+                    btnForthGallery.setBackgroundColor(Color.parseColor("#d7d7d7"));
+                    btnForthGallery.setTextColor(Color.parseColor("#ffffff"));
+                    btnThirdGallery.setBackgroundColor(Color.parseColor("#ffffff"));
+                    btnThirdGallery.setTextColor(Color.parseColor("#0d95e9"));
+                }
+                else{
+                    btnThirdGallery.setBackgroundColor(Color.parseColor("#d7d7d7"));
+                    btnThirdGallery.setTextColor(Color.parseColor("#ffffff"));
+                    btnForthGallery.setBackgroundColor(Color.parseColor("#ffffff"));
+                    btnForthGallery.setTextColor(Color.parseColor("#0d95e9"));
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
 
         // Title을 설정합니다.
         getActivity().setTitle("Other Fragment");

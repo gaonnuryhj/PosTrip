@@ -47,6 +47,13 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical">
 
+                    <ImageButton
+                        android:background="@drawable/share_de"
+                        android:layout_marginLeft="200dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:id="@+id/share_btn"/>
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -72,7 +79,6 @@
                         android:id="@+id/urlView2"
                         android:textSize="12dp"/>
                 </LinearLayout>
-
             </TableRow>
         </TableLayout>
     </LinearLayout>

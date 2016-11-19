@@ -117,9 +117,9 @@ public class TInsideFragment4 extends Fragment {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
 
                 alertDialogBuilder
-                        .setMessage("공유 하시겠습니까")
+                        .setMessage("Share it?")
                         .setCancelable(false)
-                        .setPositiveButton("공유",
+                        .setPositiveButton("yes",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(
                                             DialogInterface dialog, int id) {
@@ -127,7 +127,7 @@ public class TInsideFragment4 extends Fragment {
 
                                     }
                                 })
-                        .setNegativeButton("취소",
+                        .setNegativeButton("no",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(
                                             DialogInterface dialog, int id) {
@@ -277,7 +277,6 @@ public class TInsideFragment4 extends Fragment {
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 loading.dismiss();
-                Toast.makeText(getContext(),"Share",Toast.LENGTH_LONG).show();
             }
 
             @Override

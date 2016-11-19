@@ -281,7 +281,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                 retrofit.login(7, id_num,password, new Callback<JsonObject>() {
 
                     LayoutInflater inflater = getLayoutInflater();
-                    View layout = inflater.inflate(R.layout.custom_toast,
+                    View layout = inflater.inflate(R.layout.custom_toast_r,
                             (ViewGroup) findViewById(R.id.toast_layout));
 
                     TextView text = (TextView) layout.findViewById(R.id.text);

@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity
         mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // animation을 멈추려면, fasle로 설정
+
                 mSwipeRefresh.setRefreshing(false);
             }
         });
@@ -162,6 +162,7 @@ public class MainActivity extends AppCompatActivity
                 c_num=t.getC_num();
                 if(url!=null){
 
+
                     ShareTask shareTask = new ShareTask();
                     shareTask.execute(url);}
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
@@ -176,9 +177,9 @@ public class MainActivity extends AppCompatActivity
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
 
                 alertDialogBuilder
-                        .setMessage("삭제하시겠습니까?")
+                        .setMessage("Are you sure you want to delete?")
                         .setCancelable(false)
-                        .setPositiveButton("삭제",
+                        .setPositiveButton("delete",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(
                                             DialogInterface dialog, int id) {
@@ -191,7 +192,7 @@ public class MainActivity extends AppCompatActivity
 
                                     }
                                 })
-                        .setNegativeButton("취소",
+                        .setNegativeButton("cancle",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(
                                             DialogInterface dialog, int id) {
@@ -287,7 +288,7 @@ public class MainActivity extends AppCompatActivity
 
         if(num==0){
             LayoutInflater inflater = getLayoutInflater();
-            View layout = inflater.inflate(R.layout.custom_toast,
+            View layout = inflater.inflate(R.layout.custom_toast_r,
                     (ViewGroup) findViewById(R.id.toast_layout));
 
             TextView text = (TextView) layout.findViewById(R.id.text);
@@ -438,7 +439,7 @@ public class MainActivity extends AppCompatActivity
                         JsonArray result = jsonObject.getAsJsonArray("result");
                         String errorCode = ((JsonObject)result.get(0)).get("errorCode").getAsString();
                         if(errorCode.equals("success")){
-                            Toast.makeText(MainActivity.this,errorCode, Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(MainActivity.this,errorCode, Toast.LENGTH_SHORT).show();
                         }
                     }
 

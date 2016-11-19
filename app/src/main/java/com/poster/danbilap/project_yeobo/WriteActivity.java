@@ -316,8 +316,8 @@ public class WriteActivity extends Activity {
                                             +path;
 
 //                                    messageText.setText(msg);
-                                    Toast.makeText(WriteActivity.this, "File Upload Complete.",
-                                            Toast.LENGTH_SHORT).show();
+                                 //   Toast.makeText(WriteActivity.this, "File Upload Complete.",
+                                 //           Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
@@ -335,8 +335,8 @@ public class WriteActivity extends Activity {
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 ///    messageText.setText("MalformedURLException Exception : check script url.");
-                                Toast.makeText(WriteActivity.this, "MalformedURLException",
-                                        Toast.LENGTH_SHORT).show();
+                            //    Toast.makeText(WriteActivity.this, "MalformedURLException",
+                            //            Toast.LENGTH_SHORT).show();
                             }
                         });
 
@@ -349,8 +349,8 @@ public class WriteActivity extends Activity {
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 //   messageText.setText("Got Exception : see logcat ");
-                                Toast.makeText(WriteActivity.this, "Got Exception : see logcat ",
-                                        Toast.LENGTH_SHORT).show();
+                             //   Toast.makeText(WriteActivity.this, "Got Exception : see logcat ",
+                             //           Toast.LENGTH_SHORT).show();
                             }
                         });
                         Log.e("Upload Exception", "Exception : " + e.getMessage(), e);

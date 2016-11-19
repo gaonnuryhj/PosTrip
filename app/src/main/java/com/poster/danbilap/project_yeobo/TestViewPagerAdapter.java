@@ -17,7 +17,7 @@ public class TestViewPagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0 :
-                return "Storage";  // 후기
+                return "Repository";  // 후기
             case 1 :
                 return "Others";  // 멘토 리스트
             case 2 :

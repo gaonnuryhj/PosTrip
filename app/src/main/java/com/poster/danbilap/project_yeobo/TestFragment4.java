@@ -38,10 +38,8 @@ public class TestFragment4 extends Fragment {
         return instance;
     }
     TextView tv;
-    ProgressDialog m_pdlg;//다운중이면 계속 돌아가는것
     Context context;
     int count=0;
-    String addr=null;
     String real_addr=null;
 
     String data=null;
@@ -58,12 +56,6 @@ public class TestFragment4 extends Fragment {
 
     Button btn1,btn2,btn3,btn4;
 
-
-    String s_degree1=null;//섭씨
-    String s_degree2=null;//화씨
-    String s_high=null;//최고온도
-    String s_low=null;//최저온도
-    String s_state=null;//상태
 
     String url1_1="http://api.visitkorea.or.kr/openapi/service/rest/EngService/areaBasedList?serviceKey=MzCAnESO3z50JKMA%2FmBbn28TIlId4PzXUP3j170v7c3MwCNaP%2FlyVWpFSZy%2BQHNC0dqzya0Ogp8sJbHPit2Ssw%3D%3D&numOfRows=10&pageSize=10&pageNo=1&startPage=1&arrange=B&listYN=Y&areaCode=";
     String url1_2="&cat1=A01&MobileOS=ETC&MobileApp=%EA%B3%B5%EC%9C%A0%EC%9E%90%EC%9B%90%ED%8F%AC%ED%84%B8";
@@ -218,11 +210,7 @@ public class TestFragment4 extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            m_pdlg=new ProgressDialog(context);
-            m_pdlg.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            m_pdlg.setMax(100);
-            m_pdlg.setMessage("다운로드중입니다.");
-            m_pdlg.show();
+
         }
 
         // onPreExecute() 실행 후에 백그라운드 쓰레드로 수행됨
@@ -240,7 +228,6 @@ public class TestFragment4 extends Fragment {
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
-            m_pdlg.setProgress(values[0]);//처음값
         }
 
         @Override
@@ -265,9 +252,9 @@ public class TestFragment4 extends Fragment {
                     degree1.setText(""+cel);//1.섭씨
                     degree2.setText(""+cel2);//2.화씨
                 }else
-                    degree1.setText("데이터가 없습니다.");
+                    degree1.setText("There is no data");
             }else
-                degree1.setText("데이터가 없습니다.");
+                degree1.setText("There is no data");
 
             //3.최고온도
             tag_start="<tmx>";
@@ -286,9 +273,9 @@ public class TestFragment4 extends Fragment {
                         high.setText(""+h);//3.최고온도
                     }
                 }else
-                    high.setText("데이터가 없습니다.");
+                    high.setText("There is no data");
             }else
-                high.setText("데이터가 없습니다.");
+                high.setText("There is no data");
 
 
             //4.최저온도
@@ -308,9 +295,9 @@ public class TestFragment4 extends Fragment {
                         low.setText(""+l);//4.최저온도
                     }
                 }else
-                    low.setText("데이터가 없습니다.");
+                    low.setText("There is no data");
             }else
-                low.setText("데이터가 없습니다.");
+                low.setText("There is no data");
 
             //5.상태
             tag_start="<wfEn>";
@@ -340,12 +327,11 @@ public class TestFragment4 extends Fragment {
                         img.setImageResource(R.drawable.w6);
                     }
                 }else
-                    state.setText("데이터가 없습니다.");
+                    state.setText("There is no data");
             }else
-                state.setText("데이터가 없습니다.");
+                state.setText("There is no data");
 
 
-            m_pdlg.dismiss();//ProgressDialog를 없애는것
         }
 
         private String downloadUrl(String myurl) throws IOException{
