@@ -215,6 +215,10 @@ public class MainActivity extends AppCompatActivity
                     intent.putExtras(bundle);
                     startActivity(intent);}
                 }
+                else{
+                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);}
 
 
             }
