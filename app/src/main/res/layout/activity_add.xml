@@ -108,7 +108,7 @@
                 android:id="@+id/btn_start"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/calendar"
+                android:background="@drawable/calendar4"
                 android:layout_marginRight="12dp"/>
 
             <TextView
@@ -135,7 +135,7 @@
                 android:id="@+id/btn_end"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/calendar"
+                android:background="@drawable/calendar4"
                 android:layout_marginRight="12dp"/>
 
             <TextView

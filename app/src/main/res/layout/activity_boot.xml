@@ -7,51 +7,53 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@color/white"
+    android:background="@color/main"
     android:gravity="center"
+
     android:weightSum="1">
 
-    <ImageView
-        android:layout_marginBottom="15dp"
-        android:src="@drawable/ic"
-        android:layout_width="236dp"
-        android:layout_height="249dp"
-        android:layout_weight="0.28" />
+    <!--<ImageView-->
+        <!--android:layout_marginBottom="15dp"-->
+        <!--android:src="@drawable/boot5"-->
+        <!--android:layout_width="300dp"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:layout_weight="0.28"-->
+        <!--android:paddingRight="40dp"/>-->
+
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+       >
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="50dp"
-            android:textColor="@color/main"
+            android:textSize="48dp"
+            android:textColor="@color/white"
             android:text="P"
             android:textStyle="bold"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="30dp"
-            android:textColor="@color/main"
+            android:textSize="43dp"
+            android:textColor="@color/white"
             android:text="os"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="50dp"
-            android:textColor="@color/main"
-            android:text="T"
-            android:textStyle="bold"/>
+            android:textSize="43dp"
+            android:textColor="@color/white"
+            android:text="T"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="30dp"
-            android:textColor="@color/main"
+            android:textSize="43dp"
+            android:textColor="@color/white"
             android:text="rip"/>
 
 

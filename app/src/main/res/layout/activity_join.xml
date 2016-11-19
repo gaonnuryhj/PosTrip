@@ -13,11 +13,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-
         android:layout_marginTop="100dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_weight="0.43">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="50dp"
+            android:textColor="@color/gray"
+            android:text="Signup"
+            android:layout_marginBottom="25dp"
+            android:layout_marginTop="15dp"/>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -78,11 +85,19 @@
             style="?android:textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
-            android:text="Join"
+            android:layout_marginTop="10dp"
+            android:text="Sign up for Postrip"
             android:textStyle="bold"
-            android:background="#56bc94"
+            android:background="@color/main"
             android:textColor="#ffffff" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="10dp"
+            android:textColor="@color/gray"
+            android:text="Thanks to join us!"
+            android:layout_marginTop="5dp"/>
 
     </LinearLayout>
 

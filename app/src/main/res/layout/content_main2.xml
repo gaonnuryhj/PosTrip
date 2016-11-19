@@ -12,10 +12,11 @@
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/white"
-        android:textColor="@color/main"
+        android:background="@color/main"
+        android:textColor="@color/white"
         app:pstsShouldExpand="true"
-        app:pstsIndicatorColor="@color/main"/>
+        app:pstsIndicatorColor="@color/white"
+        />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"

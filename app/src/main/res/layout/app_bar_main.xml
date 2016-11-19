@@ -35,7 +35,7 @@
                     android:layout_gravity="bottom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="25dp"
+                    android:textSize="23dp"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:text="P"/>
@@ -44,24 +44,23 @@
                     android:layout_gravity="bottom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16dp"
+                    android:textSize="20dp"
                     android:textColor="@color/white"
-                    android:text="os "/>
+                    android:text="os"/>
 
                 <TextView
                     android:layout_gravity="bottom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     android:textColor="@color/white"
-                    android:textStyle="bold"
                     android:text="T"/>
 
                 <TextView
                     android:layout_gravity="bottom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16dp"
+                    android:textSize="20dp"
                     android:textColor="@color/white"
                     android:text="rip"/>
 
