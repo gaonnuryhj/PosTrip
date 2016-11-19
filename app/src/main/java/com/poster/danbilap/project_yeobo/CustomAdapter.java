@@ -21,15 +21,17 @@ class CustomAdapter extends ArrayAdapter<String> {
     ArrayList<String> contents;
 
     ArrayList<String> names;
+    ArrayList<String> goods;
     Context context;
 
-    public CustomAdapter(Context context, int textViewResourceId, ArrayList<String> titles , ArrayList<String> contents, ArrayList<String> names ) {
+    public CustomAdapter(Context context, int textViewResourceId, ArrayList<String> titles , ArrayList<String> contents, ArrayList<String> names , ArrayList<String> goods) {
         super(context, textViewResourceId, titles);
         this.titles=titles;
         this.contents=contents;
 //        this.bitmaps = bitmaps;
         this.context = context;
         this.names=names;
+        this.goods=goods;
     }
 
     public View getView(int position, View view, ViewGroup parent)
@@ -41,6 +43,7 @@ class CustomAdapter extends ArrayAdapter<String> {
         }
         String title=titles.get(position);
         String content=contents.get(position);
+        String good=goods.get(position);
 
         if (title != null)
         {
@@ -49,6 +52,9 @@ class CustomAdapter extends ArrayAdapter<String> {
 
             TextView textView2=(TextView)v.findViewById(R.id.content);
             textView2.setText(content);
+            TextView textView3=(TextView)v.findViewById(R.id.good);
+            textView3.setText(good);
+            ImageView share=(ImageView)v.findViewById(R.id.share);
 
 
             ImageView imageView=(ImageView)v.findViewById(R.id.picture_name);

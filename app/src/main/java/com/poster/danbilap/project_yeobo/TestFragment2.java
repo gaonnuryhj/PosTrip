@@ -24,6 +24,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -42,6 +43,8 @@ public class TestFragment2 extends Fragment {
     private static final String TAG_CONTENT = "content";
     private static final String TAG_PICTURE = "picture_name";
 
+    private static final String TAG_GOOD = "good";
+
 
     ArrayList<HashMap<String, String>> reviewList;
 
@@ -53,6 +56,8 @@ public class TestFragment2 extends Fragment {
     static ArrayList<String> contentList = new ArrayList<String>();
     static ArrayList<Bitmap> bitmapList = new ArrayList<Bitmap>();
     static ArrayList<String> nameList = new ArrayList<String>();
+
+    static ArrayList<String> goodList = new ArrayList<String>();
 
 
     JSONArray review = null;
@@ -119,6 +124,7 @@ public class TestFragment2 extends Fragment {
             contentList = new ArrayList<String>();
             bitmapList = new ArrayList<Bitmap>();
             nameList = new ArrayList<String>();
+            goodList=new ArrayList<String>();
 
         }
 
@@ -128,7 +134,8 @@ public class TestFragment2 extends Fragment {
     }
 
     public void init() {
-        getData("http://203.252.182.94//load2.php");
+        getData("http://203.252.182.94//load3.php");
+        getData("http://203.252.182.94//load.php");
     }
 
     protected void showList() {
@@ -141,6 +148,7 @@ public class TestFragment2 extends Fragment {
             contentList = new ArrayList<String>();
             bitmapList = new ArrayList<Bitmap>();
             nameList = new ArrayList<String>();
+            goodList=new ArrayList<String>();
 
             for (int i = 0; i < review.length(); i++) {
                 JSONObject c = review.getJSONObject(i);
@@ -150,19 +158,19 @@ public class TestFragment2 extends Fragment {
                 String title = c.getString(TAG_TITLE);
                 String content = c.getString(TAG_CONTENT);
                 String picture_name = c.getString(TAG_PICTURE);
+                String good=c.getString(TAG_GOOD);
 
-                if (t_num == travel) {
                     titleList.add(title);
                     contentList.add(content);
-
                     nameList.add(picture_name);
+                    goodList.add(good);
 
-                }
+
 
             }
 
 
-            CustomAdapter m_adapter = new CustomAdapter(getContext(), R.layout.custom_list, titleList, contentList, nameList);
+            CustomAdapter m_adapter = new CustomAdapter(getContext(), R.layout.custom_list, titleList, contentList, nameList,goodList);
             list.setAdapter(m_adapter);
             m_adapter.notifyDataSetChanged();
 
@@ -186,6 +194,14 @@ public class TestFragment2 extends Fragment {
                 try {
                     URL url = new URL(uri);
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                    String data  = URLEncoder.encode(TAG_TRAVEL, "UTF-8") + "=" + URLEncoder.encode(String.valueOf(t_num), "UTF-8");
+
+
+                    con.setDoOutput(true);
+                    OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
+
+                    wr.write( data );
+                    wr.flush();
                     StringBuilder sb = new StringBuilder();
 
                     bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));

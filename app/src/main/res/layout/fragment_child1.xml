@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/fragment_container">
-
         <ListView
             android:id="@+id/listView"
             android:layout_marginBottom="5dp"
@@ -22,7 +21,9 @@
             android:divider="#000000"
             android:focusable="false"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></ListView>
+            android:layout_height="match_parent"
+
+            android:scrollbars="none"></ListView>
 
         <ImageButton
             android:layout_gravity="bottom|right"
@@ -31,7 +32,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:background="@drawable/memo1" />
+            android:background="@drawable/memo1"
+            android:layout_margin="5dp"/>
+
+
     </FrameLayout>
 
 

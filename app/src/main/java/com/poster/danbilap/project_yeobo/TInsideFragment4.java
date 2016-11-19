@@ -2,10 +2,13 @@ package com.poster.danbilap.project_yeobo;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +47,9 @@ public class TInsideFragment4 extends Fragment {
     private static final String TAG_TITLE = "title";
     private static final String TAG_CONTENT = "content";
     private static final String TAG_PICTURE = "picture_name";
+    private static final String TAG_GOOD = "good";
+
+    private SwipeRefreshLayout mSwipeRefresh;
 
 
     ArrayList<HashMap<String, String>> reviewList;
@@ -56,6 +62,7 @@ public class TInsideFragment4 extends Fragment {
     static ArrayList<String> contentList = new ArrayList<String>();
     //  static ArrayList<Bitmap> bitmapList = new ArrayList<Bitmap>();
     static ArrayList<String> nameList = new ArrayList<String>();
+    static ArrayList<String> goodList = new ArrayList<String>();
 
 
     JSONArray review = null;
@@ -103,10 +110,36 @@ public class TInsideFragment4 extends Fragment {
         reviewList = new ArrayList<HashMap<String, String>>();
 
 
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                insertToDatabase(titleList.get(position), contentList.get(position), nameList.get(position));
+            public boolean onItemLongClick(AdapterView<?> parent, View view,final int position, long id) {
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+
+                alertDialogBuilder
+                        .setMessage("공유 하시겠습니까")
+                        .setCancelable(false)
+                        .setPositiveButton("공유",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(
+                                            DialogInterface dialog, int id) {
+                                        insertToDatabase(titleList.get(position), contentList.get(position), nameList.get(position));
+
+                                    }
+                                })
+                        .setNegativeButton("취소",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(
+                                            DialogInterface dialog, int id) {
+                                        // 다이얼로그를 취소한다
+                                        dialog.cancel();
+                                    }
+                                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // 다이얼로그 보여주기
+                alertDialog.show();
+                return false;
             }
         });
 
@@ -137,6 +170,7 @@ public class TInsideFragment4 extends Fragment {
             titleList = new ArrayList<String>();
             contentList = new ArrayList<String>();
             nameList = new ArrayList<String>();
+            goodList = new ArrayList<String>();
 
             for (int i = 0; i < review.length(); i++) {
                 JSONObject c = review.getJSONObject(i);
@@ -146,12 +180,14 @@ public class TInsideFragment4 extends Fragment {
                 String title = c.getString(TAG_TITLE);
                 String content = c.getString(TAG_CONTENT);
                 String picture_name = c.getString(TAG_PICTURE);
+                String good = c.getString(TAG_GOOD);
 
                 if(c_num==city)
                 {
                     titleList.add(title);
                     contentList.add(content);
                     nameList.add(picture_name);
+                    goodList.add(good);
                 }
                 // bitmap = new ImageRoader().getBitmapImg(picture_name);
                 // bitmapList.add(bitmap);
@@ -159,7 +195,7 @@ public class TInsideFragment4 extends Fragment {
             }
 
 //            Toast.makeText(getContext(),"TES3",Toast.LENGTH_SHORT).show();
-            CustomAdapter m_adapter = new CustomAdapter(getContext(), R.layout.custom_list, titleList, contentList, nameList);
+            CustomAdapter m_adapter = new CustomAdapter(getContext(), R.layout.custom_list, titleList, contentList, nameList,goodList);
             list.setAdapter(m_adapter);
             m_adapter.notifyDataSetChanged();
 
@@ -176,13 +212,27 @@ public class TInsideFragment4 extends Fragment {
             @Override
             protected String doInBackground(String... params) {
 
+
+
+
                 String uri = params[0];
 
                 BufferedReader bufferedReader = null;
                 try {
+
                     URL url = new URL(uri);
                     //   Toast.makeText(getApplicationContext(),uri,Toast.LENGTH_SHORT).show();
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+                    String data  = URLEncoder.encode(TAG_CITY, "UTF-8") + "=" + URLEncoder.encode(String.valueOf(c_num), "UTF-8");
+
+
+                    con.setDoOutput(true);
+                    OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
+
+                    wr.write( data );
+                    wr.flush();
+
                     StringBuilder sb = new StringBuilder();
 
                     bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));

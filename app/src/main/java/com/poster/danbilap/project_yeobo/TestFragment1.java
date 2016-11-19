@@ -1,5 +1,6 @@
 package com.poster.danbilap.project_yeobo;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,7 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.example.danbilap.project_yeobo.R;
+
+import java.util.ArrayList;
 
 public class TestFragment1 extends Fragment {
 
@@ -58,6 +62,7 @@ public class TestFragment1 extends Fragment {
             @Override
             public void onClick(View v) {
                 pager.setCurrentItem(0);
+              //  btnFirstGallery.setBackgroundColor(Color.parseColor("#0d95e9"));
             }
         });
         btnSecondGallery = (Button) view.findViewById(R.id.btnSecondGallery);
@@ -67,6 +72,7 @@ public class TestFragment1 extends Fragment {
                 pager.setCurrentItem(1);
             }
         });
+
 
 
         // View Pager를 선언합니다.
@@ -81,7 +87,10 @@ public class TestFragment1 extends Fragment {
 
         // Inflate the layout for this fragment
         return view;
+
     }
+
+
 
     private class PagerAdapter extends FragmentPagerAdapter {
 

@@ -1,9 +1,11 @@
 package com.poster.danbilap.project_yeobo;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +22,10 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -39,6 +43,7 @@ public class TInsideFragment2 extends Fragment {
     private static final String TAG_TITLE = "title";
     private static final String TAG_CONTENT = "content";
     private static final String TAG_PICTURE = "picture_name";
+    private static final String TAG_GOOD = "good";
 
 
     ArrayList<HashMap<String, String>> reviewList;
@@ -51,6 +56,7 @@ public class TInsideFragment2 extends Fragment {
     static ArrayList<String> contentList = new ArrayList<String>();
     //  static ArrayList<Bitmap> bitmapList = new ArrayList<Bitmap>();
     static ArrayList<String> nameList = new ArrayList<String>();
+    static ArrayList<String> goodList = new ArrayList<String>();
 
 
     JSONArray review = null;
@@ -105,6 +111,19 @@ public class TInsideFragment2 extends Fragment {
             }
         });
 
+        FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab2);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), WriteActivity.class);
+
+                intent.putExtra(TAG_TRAVEL, t_num);
+                intent.putExtra(TAG_CITY, c_num);
+
+                startActivity(intent);
+            }
+        });
+
 
         if (savedInstanceState == null) {
             // getData("http://203.252.182.94//load2.php");
@@ -119,11 +138,12 @@ public class TInsideFragment2 extends Fragment {
         titleList = new ArrayList<String>();
         contentList = new ArrayList<String>();
         nameList = new ArrayList<String>();
+        goodList=new ArrayList<String>();
 
         getData("http://203.252.182.94//load.php");
-        getData("http://203.252.182.94//load2.php");
+        getData("http://203.252.182.94//load3.php");
 
-        CustomAdapter m_adapter = new CustomAdapter(getContext(), R.layout.custom_list, titleList, contentList, nameList);
+        CustomAdapter m_adapter = new CustomAdapter(getContext(), R.layout.custom_list, titleList, contentList, nameList,goodList);
         list.setAdapter(m_adapter);
         m_adapter.notifyDataSetChanged();
 
@@ -141,18 +161,16 @@ public class TInsideFragment2 extends Fragment {
             for (int i = 0; i < review.length(); i++) {
                 JSONObject c = review.getJSONObject(i);
 
-                int travel = c.getInt(TAG_TRAVEL);
-                int city = c.getInt(TAG_CITY);
                 String title = c.getString(TAG_TITLE);
                 String content = c.getString(TAG_CONTENT);
                 String picture_name = c.getString(TAG_PICTURE);
+                String good = c.getString(TAG_GOOD);
 
-                if(t_num==travel)
-                {
                     titleList.add(title);
                     contentList.add(content);
                     nameList.add(picture_name);
-                }
+                    goodList.add(good);
+
 
             }
 
@@ -177,6 +195,15 @@ public class TInsideFragment2 extends Fragment {
                     URL url = new URL(uri);
                     //   Toast.makeText(getApplicationContext(),uri,Toast.LENGTH_SHORT).show();
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+                    String data  = URLEncoder.encode(TAG_TRAVEL, "UTF-8") + "=" + URLEncoder.encode(String.valueOf(t_num), "UTF-8");
+
+
+                    con.setDoOutput(true);
+                    OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
+
+                    wr.write( data );
+                    wr.flush();
                     StringBuilder sb = new StringBuilder();
 
                     bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));

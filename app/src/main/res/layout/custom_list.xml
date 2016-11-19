@@ -8,7 +8,6 @@
     android:orientation="vertical"
     tools:context="com.poster.danbilap.project_yeobo.MainActivity"
 
-    android:background="@drawable/photo_frame"
     >
 
 <LinearLayout
@@ -26,6 +25,7 @@
         android:gravity="left"
         android:layout_gravity="center_vertical"
         android:paddingBottom="5dp"
+        android:layout_marginLeft="5dp"
         />
     <TextView
         android:id="@+id/content"
@@ -33,17 +33,45 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="2dip"
+        android:textSize="18dp"
+        android:textColor="@color/darkGray"
+        android:typeface= "sans"
+        android:layout_marginLeft="5dp"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="right"
+        android:layout_marginRight="10dp"
+       >
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/share"
+            android:gravity="right"
+            android:id="@+id/share"
+            android:layout_margin="5dp"/>
+    <TextView
+        android:id="@+id/good"
+        android:autoLink=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="2dip"
         android:textSize="20dp"
-        android:textColor="@color/gray"
-        android:typeface= "sans" />
+        android:textColor="@color/red"
+        android:typeface= "sans"
+        android:gravity="center"
+        />
+        </LinearLayout>
 
     <ImageView
         android:scaleType="fitXY"
         android:layout_width="match_parent"
         android:layout_height="1000px"
         android:adjustViewBounds="true"
-        android:id="@+id/picture_name"
-        android:background="@drawable/photo_frame"/>
+        android:id="@+id/picture_name"/>
 
 
 

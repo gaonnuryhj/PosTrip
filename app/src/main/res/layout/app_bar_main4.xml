@@ -7,7 +7,6 @@
     android:fitsSystemWindows="true"
     tools:context="com.poster.danbilap.project_yeobo.MainActivity"
     android:background="@color/white">
-
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,6 +16,5 @@
         android:dividerHeight="15dp"
         android:divider="@color/white"
         />
-
 
 </android.support.design.widget.CoordinatorLayout>

@@ -8,7 +8,10 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.poster.danbilap.project_yeobo.MainActivity"
     tools:showIn="@layout/app_bar_main" >
-
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <GridView
         android:listSelector="@drawable/gridview_selector"
         android:id="@+id/gridView1"
@@ -17,5 +20,6 @@
         android:numColumns="2"
         android:stretchMode="columnWidth"
         />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

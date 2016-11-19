@@ -8,6 +8,6 @@
     <color name="white2">#daffffff</color>
     <color name="main">#0d95e9</color>
     <color name="gray">#d7d7d7</color>
-    <color name="darkGray">#525252</color>
-    <color name="skyblue">#dff5ff</color>
+    <color name="darkGray">#696969</color>
+    <color name="red">#cf203c</color>
 </resources>

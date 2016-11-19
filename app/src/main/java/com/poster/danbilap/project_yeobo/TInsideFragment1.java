@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
@@ -38,10 +39,7 @@ import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-/**
- * Created by daeun on 2016-11-16.
- */
-public class TInsideFragment1 extends Fragment  {
+public class TInsideFragment1 extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     ImageButton ib ;
     ViewGroup rootView;
@@ -55,16 +53,16 @@ public class TInsideFragment1 extends Fragment  {
     int t_number;
     int c_num;
     int check_num = 1; //메모
-
-
-
+    SwipeRefreshLayout swipeLayout;
     myFragListener ac;
 
+    @Override
+    public void onRefresh() {
+    }
     public interface myFragListener{
         public int get1();
         public int get2();
     }
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -72,15 +70,12 @@ public class TInsideFragment1 extends Fragment  {
             ac =(myFragListener)activity;
         }
     }
-
     @Override
     public void onResume() {
         memoAdapter = new MemoAdapter(getContext(), R.layout.memo, m_arr);
         lv.setAdapter(memoAdapter);
-
         super.onResume();
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -91,11 +86,8 @@ public class TInsideFragment1 extends Fragment  {
         c_num=ac.get2();
 
         init();
-
         return rootView;
     }
-
-
     public void init() {
 
         m_arr = new ArrayList<Memo>();
@@ -158,10 +150,7 @@ public class TInsideFragment1 extends Fragment  {
             }
         });
         memoAdapter.notifyDataSetChanged();
-
     }
-
-
     void show_memo(final int travel_number) {
         new Thread(new Runnable() {
             @Override
@@ -222,7 +211,6 @@ public class TInsideFragment1 extends Fragment  {
                 });
             }
         }).start();
-
     }
 
 
@@ -322,7 +310,6 @@ public class TInsideFragment1 extends Fragment  {
                 }
             }
             return v;
-
         }
     }
 }

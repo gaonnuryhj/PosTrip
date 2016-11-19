@@ -5,10 +5,10 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 
-public class TestViewPagerAdapter extends FragmentStatePagerAdapter {
+public class TestViewPagerAdapter2 extends FragmentStatePagerAdapter {
     ArrayList<Fragment> fragmentArrayList;
 
-    public TestViewPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragmentArrayList) {
+    public TestViewPagerAdapter2(FragmentManager fm, ArrayList<Fragment> fragmentArrayList) {
         super(fm);
         this.fragmentArrayList = fragmentArrayList;
     }
@@ -17,11 +17,9 @@ public class TestViewPagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0 :
-                return "Storage";  // 후기
+                return "Url & Memo";  // 후기
             case 1 :
-                return "Others";  // 멘토 리스트
-            case 2 :
-                return "Info";
+                return "Review";  // 멘토 리스트
         }
         return "position "+position;
     }

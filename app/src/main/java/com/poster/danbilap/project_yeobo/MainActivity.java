@@ -10,15 +10,19 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.danbilap.project_yeobo.R;
@@ -66,8 +70,9 @@ public class MainActivity extends AppCompatActivity
     String sharedDescription;
     String sharedTitle;
     int travel_number,c_num;
-
+    int num;
     private BackPressCloseSystem backPressCloseSystem;
+    private SwipeRefreshLayout mSwipeRefresh;
 
 
     @Override
@@ -79,7 +84,7 @@ public class MainActivity extends AppCompatActivity
         show_travel(u_id);
         url = i.getStringExtra("url");
         short_url = shorten.getShortenUrl(url);
-        int num=0;
+        num=0;
         backPressCloseSystem = new BackPressCloseSystem(this);
 
 
@@ -108,6 +113,22 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new Intent(MainActivity.this, AddActivity.class);
                 intent.putExtra("id", u_id);
                 startActivity(intent);
+            }
+        });
+
+
+        mSwipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+
+// resource id로 색상을 변경하려면 setColorSchemeResources() 사용
+        mSwipeRefresh.setColorSchemeResources(R.color.main);
+// Color 객체는 setColorSchemeColors(...)를 사용
+//mSwipeRefresh.setColorSchemeColors(Color.BLUE, Color.YELLOW, Color.BLUE);
+
+        mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // animation을 멈추려면, fasle로 설정
+                mSwipeRefresh.setRefreshing(false);
             }
         });
 
@@ -254,10 +275,32 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         }
         else {
+            /*super.onBackPressed();
+            backPressCloseSystem.onBackPressed();*/
+        }
+        if(num==1){
+
             super.onBackPressed();
+            backPressCloseSystem.onBackPressed();
+
         }
 
-        backPressCloseSystem.onBackPressed();
+        if(num==0){
+            LayoutInflater inflater = getLayoutInflater();
+            View layout = inflater.inflate(R.layout.custom_toast,
+                    (ViewGroup) findViewById(R.id.toast_layout));
+
+            TextView text = (TextView) layout.findViewById(R.id.text);
+            text.setText("Press the Back button again to exit.");
+            Toast toast = new Toast(getApplicationContext());
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setView(layout);
+            toast.show();
+        }
+
+        num=1;
+
+
 
     }
 
