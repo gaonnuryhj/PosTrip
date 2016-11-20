@@ -148,6 +148,7 @@ public class TInsideFragment3 extends Fragment {
                             public void success(JsonObject jsonObject, Response response) {
                                 JsonArray result = jsonObject.getAsJsonArray("result");
                                 String errcode = ((JsonObject)result.get(0)).get("errorCode").getAsString();
+                                Toast.makeText(getContext(), "공유되었습니다!", Toast.LENGTH_SHORT).show();
                             }
                             @Override
                             public void failure(RetrofitError error) {
@@ -220,9 +221,10 @@ public class TInsideFragment3 extends Fragment {
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());// 여기서 this는 Activity의 this
 
                         // 여기서 부터는 알림창의 속성 설정
-                        builder.setMessage("Share it?")        // 메세지 설정
+                        builder.setTitle("공 유")        // 제목 설정
+                                .setMessage("공유 하시겠습니까?")        // 메세지 설정
                                 .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능 설정
-                                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                                .setPositiveButton("예", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int whichButton) {
                                         share_others(travel_num,share_url,share_img,share_description,share_title,
                                                 memo_content,memo_title,c_num2,check_num2);
@@ -231,7 +233,7 @@ public class TInsideFragment3 extends Fragment {
                                     }
                                 })
 
-                                .setNegativeButton("no", new DialogInterface.OnClickListener() {
+                                .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int whichButton) {
                                         dialog.cancel();
                                     }

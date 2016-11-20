@@ -244,16 +244,17 @@ public class TInsideFragment1 extends Fragment {
                         //길게 누르면 삭제 버튼 생성
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());// 여기서 this는 Activity의 this
                         // 여기서 부터는 알림창의 속성 설정
-                        builder.setMessage("Are you sure you want to delete?")        // 메세지 설정
+                        builder.setTitle("메모 삭제")        // 제목 설정
+                                .setMessage("선택한 메모를 삭제 하시겠습니까?")        // 메세지 설정
                                 .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능 설정
-                                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                                .setPositiveButton("예", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int whichButton) {
                                         delete_memo(mm_share);
                                         m_arr.remove(position);
                                         memoAdapter.notifyDataSetChanged();
                                     }
                                 })
-                                .setNegativeButton("no", new DialogInterface.OnClickListener() {
+                                .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int whichButton) {
                                         dialog.cancel();
                                     }

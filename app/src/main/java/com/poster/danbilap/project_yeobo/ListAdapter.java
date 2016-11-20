@@ -2,7 +2,6 @@ package com.poster.danbilap.project_yeobo;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +9,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.danbilap.project_yeobo.R;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 
 
@@ -65,8 +61,6 @@ class ListAdapter extends BaseAdapter {
         if (convertView == null)
             convertView = inf.inflate(layout, null);
 
-
-
         info t = t_arr.get(position);
 
         TextView title_travel = (TextView)convertView.findViewById(R.id.title_travel);
@@ -80,7 +74,9 @@ class ListAdapter extends BaseAdapter {
 
         ImageView img = (ImageView)convertView.findViewById(R.id.t_img);
         s_img=t.t_img;
+//        img.setImageResource(R.drawable.tae);
 
+/*
         //url 이미지 가져오기
         Thread mThread=new Thread(){
             @Override
@@ -105,7 +101,11 @@ class ListAdapter extends BaseAdapter {
             img.setImageBitmap(bitmap);
         }catch (InterruptedException e){}
         //url이미지 가져오기
-
+*/
+        if(s_img.equals("no"))
+            img.setImageResource(R.drawable.tae);
+        else
+            Glide.with(convertView.getContext()).load(s_img).into(img);
 
 //        img.setImageResource(t.t_img);
 

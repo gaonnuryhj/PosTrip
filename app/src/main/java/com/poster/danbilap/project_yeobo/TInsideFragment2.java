@@ -1,12 +1,16 @@
 package com.poster.danbilap.project_yeobo;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +29,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,7 +59,6 @@ public class TInsideFragment2 extends Fragment {
 
     static ArrayList<String> titleList = new ArrayList<String>();
     static ArrayList<String> contentList = new ArrayList<String>();
-    //  static ArrayList<Bitmap> bitmapList = new ArrayList<Bitmap>();
     static ArrayList<String> nameList = new ArrayList<String>();
     static ArrayList<String> goodList = new ArrayList<String>();
 
@@ -104,10 +108,38 @@ public class TInsideFragment2 extends Fragment {
         reviewList = new ArrayList<HashMap<String, String>>();
 
 
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
               //  insertToDatabase(titleList.get(position), contentList.get(position), nameList.get(position));
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+
+                alertDialogBuilder
+                        .setMessage("Are you sure you want to delete?")
+                        .setCancelable(false)
+                        .setPositiveButton("yes",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(
+                                            DialogInterface dialog, int id) {
+                                        delete(titleList.get(position));
+
+                                    }
+                                })
+                        .setNegativeButton("no",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(
+                                            DialogInterface dialog, int id) {
+                                        // 다이얼로그를 취소한다
+                                        dialog.cancel();
+                                    }
+                                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // 다이얼로그 보여주기
+                alertDialog.show();
+
+
+                return false;
             }
         });
 
@@ -126,7 +158,8 @@ public class TInsideFragment2 extends Fragment {
 
 
         if (savedInstanceState == null) {
-            // getData("http://203.252.182.94//load2.php");
+            getData("http://203.252.182.94//load.php");
+            getData("http://203.252.182.94//load3.php");
 
         } else {
 //            Toast.makeText(getContext(), "second", Toast.LENGTH_SHORT).show();
@@ -134,7 +167,6 @@ public class TInsideFragment2 extends Fragment {
 //            list.setAdapter(m_adapter);
 
         }
-
         titleList = new ArrayList<String>();
         contentList = new ArrayList<String>();
         nameList = new ArrayList<String>();
@@ -146,6 +178,7 @@ public class TInsideFragment2 extends Fragment {
         CustomAdapter m_adapter = new CustomAdapter(getContext(), R.layout.custom_list, titleList, contentList, nameList,goodList);
         list.setAdapter(m_adapter);
         m_adapter.notifyDataSetChanged();
+        list.setAdapter(m_adapter);
 
         return rootView;
     }
@@ -173,6 +206,7 @@ public class TInsideFragment2 extends Fragment {
 
 
             }
+
 
 
         } catch (JSONException e) {
@@ -234,7 +268,81 @@ public class TInsideFragment2 extends Fragment {
     }
 
 
+    private void delete(String title){
 
+        class Delete extends AsyncTask<String, Void, String> {
+            ProgressDialog loading;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(getContext(), "Please Wait", null, true, true);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                loading.dismiss();
+            }
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                try{
+
+                    String title = (String)params[0];
+
+                    String link="http://203.252.182.94/delete.php";
+                    String data  = URLEncoder.encode(TAG_TRAVEL, "UTF-8") + "=" + URLEncoder.encode(String.valueOf(t_num), "UTF-8");
+                    data += "&" + URLEncoder.encode(TAG_TITLE, "UTF-8") + "=" + URLEncoder.encode(title, "UTF-8");
+
+
+                    URL url = new URL(link);
+                    URLConnection conn = url.openConnection();
+
+                    conn.setDoOutput(true);
+                    OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+
+                    wr.write( data );
+                    wr.flush();
+
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+                    StringBuilder sb = new StringBuilder();
+                    String line = null;
+
+                    // Read Server Response
+                    while((line = reader.readLine()) != null)
+                    {
+                        sb.append(line);
+                        break;
+                    }
+                    return sb.toString();
+                }
+                catch(Exception e){
+                    return new String("Exception2: " + e.getMessage());
+                }
+
+            }
+        }
+
+        Delete task = new Delete();
+        task.execute(title);
+    }
+
+
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getData("http://203.252.182.94//load.php");
+        getData("http://203.252.182.94//load3.php");
+
+        CustomAdapter m_adapter = new CustomAdapter(getContext(), R.layout.custom_list, titleList, contentList, nameList,goodList);
+        list.setAdapter(m_adapter);
+        m_adapter.notifyDataSetChanged();
+        list.setAdapter(m_adapter);
+    }
 }
 
 
